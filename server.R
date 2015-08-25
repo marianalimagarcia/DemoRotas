@@ -52,7 +52,7 @@ shinyServer(function(input, output, session) {
       } else if (map_name() == "usa") {
         cty = generate_random_cities(n=20, min_dist=50, usa_only=TRUE)
       } else if (map_name() == "brazil"){
-	    cty = generate_random_cities(n=20, min_dist=50, brasil_only=TRUE)
+	    cty = generate_random_cities(n=20, min_dist=50, brazil_only=TRUE)
 	  }
 	  
       
