@@ -5,7 +5,7 @@ if (!exists("usa_cities")) usa_cities = readRDS("data/usa_cities.rds")
 if (!exists("brazil_cities")) brazil_cities = readRDS("data/brazil_cities.rds")
 
 generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE, brazil_only=FALSE) {
-  if (usa_only) {
+  if else(usa_only) {
     candidates = usa_cities
   } if else (brazil_only){
     candidates = brazil_cities 
