@@ -2,11 +2,14 @@ miles_per_meter = 100 / 2.54 / 12 / 5280
 
 if (!exists("all_cities")) all_cities = readRDS("data/cities.rds")
 if (!exists("usa_cities")) usa_cities = readRDS("data/usa_cities.rds")
+if (!exists("brazil_cities")) brazil_cities = readRDS("data/brazil_cities.rds")
 
-generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE) {
+generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE, brazil_only=FALSE) {
   if (usa_only) {
     candidates = usa_cities
-  } else {
+  } if else (brazil_only){
+    candidates = brazil_cities 
+  }else {
     candidates = all_cities
   }
   
@@ -39,6 +42,10 @@ plot_base_map = function(map_name="world") {
   } else if (map_name == "usa") {
     map("usa", col="#f3f3f3", border=FALSE, fill=TRUE, mar=margins) #, projection="albers", parameters=c(29.5, 45.5))
     map("state", add=TRUE, col="#999999", fill=FALSE) #, projection="albers", parameters=c(29.5, 45.5))
+  } else if (map_name == "brazil") {
+    map("brazil", col="#f3f3f3", border=FALSE, fill=TRUE, mar=margins) #, projection="albers", parameters=c(29.5, 45.5))
+    map("state", add=TRUE, col="#999999", fill=FALSE) #, projection="albers", parameters=c(29.5, 45.5))
+  
   }
 }
 

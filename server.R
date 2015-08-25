@@ -19,7 +19,9 @@ shinyServer(function(input, output, session) {
       return(all_cities)
     } else if (map_name() == "usa") {
       return(usa_cities)
-    }
+    } else if (map_name() == "brazil") {
+	  return(brazil_cities)
+	}
   })
   
   update_allowed_cities = observe({
@@ -49,7 +51,10 @@ shinyServer(function(input, output, session) {
         cty = generate_random_cities(n=20, min_dist=500)
       } else if (map_name() == "usa") {
         cty = generate_random_cities(n=20, min_dist=50, usa_only=TRUE)
-      }
+      } else if (map_name() == "brazil"){
+	    cty = generate_random_cities(n=20, min_dist=50, brasil_only=TRUE)
+	  }
+	  
       
       cty$n = 1:nrow(cty)
       updateSelectizeInput(session, "cities", selected=cty$full.name)
