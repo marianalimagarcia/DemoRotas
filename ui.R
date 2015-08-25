@@ -1,6 +1,8 @@
 library(shiny)
 if (!exists("all_cities")) all_cities = readRDS("data/cities.rds")
 if (!exists("usa_cities")) usa_cities = readRDS("data/usa_cities.rds")
+if (!exists("usa_cities")) usa_cities = readRDS("data/brazil_cities.rds")
+
 
 shinyUI(fluidPage(
   tags$head(
@@ -37,7 +39,7 @@ shinyUI(fluidPage(
   fluidRow(
     column(5,
       h4("Choose a map and which cities to tour"),
-      selectInput("map_name", NA, c("World", "USA"), "World", width="100px"),
+      selectInput("map_name", NA, c("World", "USA","Brazil"), "World", width="100px"),
       p("Type below to select individual cities, or", actionButton("set_random_cities", "set randomly", icon=icon("refresh"))),
       selectizeInput("cities", NA, all_cities$full.name, multiple=TRUE, width="100%",
                      options = list(maxItems=30, maxOptions=100, placeholder="Start typing to select some cities...",
