@@ -9,7 +9,7 @@ generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE, brazil
     candidates = usa_cities
   }else if (brazil_only){
     candidates = brazil_cities 
-  }else () {
+  }else {
     candidates = all_cities
   }
   
