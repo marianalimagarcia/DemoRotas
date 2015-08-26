@@ -1,4 +1,4 @@
-miles_per_meter = 100 / 2.54 / 12 / 5280
+km_per_meter = 0.001
 
 if (!exists("all_cities")) all_cities = readRDS("data/cities.rds")
 if (!exists("usa_cities")) usa_cities = readRDS("data/usa_cities.rds")
@@ -19,7 +19,7 @@ generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE, brazil
 
   while (nrow(cities) < n & i < nrow(all_cities)) {
     candidate = candidates[sample(nrow(candidates), 1),]
-    candidate_dist_matrix = distm(rbind(cities, candidate)[, c("long", "lat")]) * miles_per_meter
+    candidate_dist_matrix = distm(rbind(cities, candidate)[, c("long", "lat")]) * km_per_meter
 
     if (min(candidate_dist_matrix[candidate_dist_matrix > 0]) > min_dist) {
       cities = rbind(cities, candidate)
