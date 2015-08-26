@@ -82,7 +82,7 @@ shinyServer(function(input, output, session) {
       if (nrow(vals$cities) < 2) return()
       if (identical(sort(vals$cities$name), sort(colnames(vals$distance_matrix)))) return()
       
-      dist_mat = distm(vals$cities[,c("long", "lat")]) * miles_per_meter
+      dist_mat = distm(vals$cities[,c("long", "lat")]) * km_per_meter
       dimnames(dist_mat) = list(vals$cities$name, vals$cities$name)
       
       vals$distance_matrix = dist_mat
