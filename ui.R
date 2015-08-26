@@ -39,8 +39,8 @@ shinyUI(fluidPage(
   fluidRow(
     column(5,
       h4("Selecione um mapa"),
-      selectInput("map_name", NA, c("World", "Brazil"), "World", width="100px"),
-      p("Escreva abaixo o nome das cidades, ou", actionButton("set_random_cities", "Definir Aleatoriamente", icon=icon("refresh"))),
+      selectInput("map_name", NA, c("World", "Brazil"), "Brasil", width="100px"),
+      p("Escreva abaixo o nome das cidades, ou", actionButton("set_random_cities", "Defina Aleatoriamente", icon=icon("refresh"))),
       selectizeInput("cities", NA, all_cities$full.name, multiple=TRUE, width="100%",
                      options = list(maxItems=30, maxOptions=100, placeholder="Start typing to select some cities...",
                                     selectOnTab=TRUE, openOnFocus=FALSE, hideSelected=TRUE)),
@@ -54,7 +54,7 @@ shinyUI(fluidPage(
         numericInput("s_curve_center", "Centro da curva S", 0, min=-1000000, max=1000000),
         numericInput("s_curve_width", "Largura da curva S", 3000, min=1, max=1000000),
         numericInput("total_iterations", "Número de Iterações da Execução", 25000, min=0, max=1000000),
-        numericInput("plot_every_iterations", "Desenhar no mapa a cada n iterações", 1000, min=1, max=1000000)
+        numericInput("plot_every_iterations", "Número de iterações a cada desenho no mapa", 1000, min=1, max=1000000)
       ),
       class="numeric-inputs"
     ),

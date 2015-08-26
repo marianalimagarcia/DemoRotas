@@ -177,7 +177,7 @@ shinyServer(function(input, output, session) {
   output$annealing_schedule = renderPlot({
     xvals = seq(from=0, to=vals$total_iterations, length.out=100)
     yvals = current_temperature(xvals, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width)
-    plot(xvals, yvals, type='l', xlab="iterations", ylab="temperature", main="Annealing Schedule")
+    plot(xvals, yvals, type='l', xlab="iterações", ylab="temperatura", main="Arrefecimento")
     points(vals$iter, current_temperature(vals$iter, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width), pch=19, col='red')
   }, height=260)
   
@@ -186,8 +186,8 @@ shinyServer(function(input, output, session) {
     
     xvals = vals$plot_every_iterations * (1:vals$number_of_loops)
     plot(xvals, vals$distances, type='o', pch=19, cex=0.7, 
-         ylim=c(0, max(vals$distances, na.rm=TRUE)), xlab="iterations", ylab="current tour distance",
-         main="Evolution of Current Tour Distance")
+         ylim=c(0, max(vals$distances, na.rm=TRUE)), xlab="iterações", ylab="distância a ser percorrida",
+         main="Evolução da distância a ser percorrida")
   }, height=260)
   
   session$onSessionEnded(function() {
