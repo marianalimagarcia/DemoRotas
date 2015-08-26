@@ -54,7 +54,7 @@ shinyUI(fluidPage(
         numericInput("s_curve_center", "Centro da curva S", 0, min=-1000000, max=1000000),
         numericInput("s_curve_width", "Largura da curva S", 3000, min=1, max=1000000),
         numericInput("total_iterations", "Número de Iterações da Execução", 25000, min=0, max=1000000),
-        numericInput("plot_every_iterations", "Número de iterações a cada desenho no mapa", 1000, min=1, max=1000000)
+        numericInput("plot_every_iterations", "Número de iterações por desenho", 1000, min=1, max=1000000)
       ),
       class="numeric-inputs"
     ),
