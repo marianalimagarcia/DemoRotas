@@ -39,7 +39,7 @@ shinyUI(fluidPage(
   fluidRow(
     column(5,
       h4("Selecione um mapa"),
-      selectInput("map_name", NA, c("World", "Brazil"), "Brasil", width="100px"),
+      selectInput("map_name", NA, c("World", "Brazil"), "Brazil", width="100px"),
       p("Escreva abaixo o nome das cidades, ou", actionButton("set_random_cities", "Defina Aleatoriamente", icon=icon("refresh"))),
       selectizeInput("cities", NA, all_cities$full.name, multiple=TRUE, width="100%",
                      options = list(maxItems=30, maxOptions=100, placeholder="Start typing to select some cities...",
