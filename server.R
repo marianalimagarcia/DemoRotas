@@ -181,6 +181,8 @@ shinyServer(function(input, output, session) {
     points(vals$iter, current_temperature(vals$iter, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width), pch=19, col='red')
   }, height=260)
   
+  #modificações
+  
   output$distance_results = renderPlot({
     if (all(is.na(vals$distances))) return()
     
