@@ -1,0 +1,2 @@
+library(shiny)
+runApp(appDir = setwd("C:/Program Files/R/R-3.2.1/library/shiny/examples"))

@@ -1,7 +1,10 @@
 .recalculating { opacity: 1 !important; }
-.numeric-inputs input { width: 75px; }
+.numeric-inputs input { width: 75px;}
 #go_button, #set_random_cities_2 {
   width: 100%;
   margin-bottom: 10px;
+  background-color: #7f7fff;
 }
 hr { margin: 8px 0; }
+
+h2 {color: #7f7fff}

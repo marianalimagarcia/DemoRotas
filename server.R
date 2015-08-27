@@ -6,33 +6,37 @@ source("helpers.R")
 shinyServer(function(input, output, session) {
   vals = reactiveValues()
   
-  map_name = reactive({
-    tolower(input$map_name)
-  })
+#  map_name = reactive({
+#    tolower(input$map_name)
+#  })
+
+  map_name = "brazil"
   
   set_random_cities = reactive({
     input$set_random_cities + input$set_random_cities_2
   })
   
-  city_choices = reactive({
-    if (map_name() == "world") {
-      return(all_cities)
-    } else if (map_name() == "usa") {
-      return(usa_cities)
-    } else if (map_name() == "brazil") {
-	  return(brazil_cities)
-	}
-  })
+#  city_choices = reactive({
+#    if (map_name() == "world") {
+#      return(all_cities)
+#    } else if (map_name() == "usa") {
+#      return(usa_cities)
+#    } else if (map_name() == "brazil") {
+#	  return(brazil_cities)
+#	}
+#  })
+
+  city_choices = brazil_cities
   
   update_allowed_cities = observe({
-    if (isolate(input$go_button) == 0 & isolate(set_random_cities()) == 0 & map_name() == "world") return()
+    if (isolate(input$go_button) == 0 & isolate(set_random_cities()) == 0 & map_name == "world") return()
     
-    updateSelectizeInput(session, "cities", choices=city_choices()$full.name)
+    updateSelectizeInput(session, "cities", choices=city_choices$full.name)
   }, priority=500)
   
   one_time_initialization = observe({
     isolate({
-      cty = subset(city_choices(), full.name %in% seed_cities)
+      cty = subset(city_choices, name %in% seed_cities)
       cty$n = 1:nrow(cty)
       updateSelectizeInput(session, "cities", selected=cty$full.name)
 
@@ -43,15 +47,15 @@ shinyServer(function(input, output, session) {
   }, priority=1000)
   
   set_cities_randomly = observe({
-    if (set_random_cities() == 0 & map_name() == "world") return()
+    if (set_random_cities() == 0 & map_name == "world") return()
     run_annealing_process$suspend()
     
     isolate({
-      if (map_name() == "world") {
+      if (map_name == "world") {
         cty = generate_random_cities(n=20, min_dist=500)
-      } else if (map_name() == "usa") {
+      } else if (map_name == "usa") {
         cty = generate_random_cities(n=20, min_dist=50, usa_only=TRUE)
-      } else if (map_name() == "brazil"){
+      } else if (map_name == "brazil"){
 	    cty = generate_random_cities(n=20, min_dist=50, brazil_only=TRUE)
 	  }
 	  
@@ -68,7 +72,7 @@ shinyServer(function(input, output, session) {
     run_annealing_process$suspend()
     
     isolate({
-      cty = subset(city_choices(), full.name %in% input$cities)
+      cty = subset(city_choices, full.name %in% input$cities)
       if (nrow(cty) == 0 | identical(sort(cty$full.name), sort(vals$cities$full.name))) return()
       cty$n = 1:nrow(cty)
       vals$cities = cty
@@ -76,7 +80,7 @@ shinyServer(function(input, output, session) {
   }, priority=50)
   
   set_dist_matrix_and_great_circles = observe({
-    if (input$go_button == 0 & set_random_cities() == 0 & map_name() == "world") return()
+    if (input$go_button == 0 & set_random_cities() == 0 & map_name == "world") return()
     
     isolate({
       if (nrow(vals$cities) < 2) return()
@@ -93,7 +97,7 @@ shinyServer(function(input, output, session) {
   setup_to_run_annealing_process = observe({
     input$go_button
     set_random_cities()
-    map_name()
+    map_name
     
     isolate({
       vals$tour = sample(nrow(vals$cities))
@@ -158,7 +162,7 @@ shinyServer(function(input, output, session) {
   }, priority=10)
   
   output$map = renderPlot({
-    plot_tour(vals$cities, vals$tour, vals$great_circles, map_name=tolower(input$map_name), label_cities=input$label_cities)
+    plot_tour(vals$cities, vals$tour, vals$great_circles, map_name, label_cities=input$label_cities)
     
     if (length(vals$tour) > 1) {
       pretty_dist = prettyNum(vals$tour_distance, big.mark=",", digits=0, scientific=FALSE)
@@ -177,7 +181,7 @@ shinyServer(function(input, output, session) {
   output$annealing_schedule = renderPlot({
     xvals = seq(from=0, to=vals$total_iterations, length.out=100)
     yvals = current_temperature(xvals, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width)
-    plot(xvals, yvals, type='l', xlab="iterações", ylab="temperatura", main="Arrefecimento")
+    plot(xvals, yvals, type='l', col = "#7f7fff", xlab="iterações", ylab="temperatura", main="Arrefecimento")
     points(vals$iter, current_temperature(vals$iter, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width), pch=19, col='red')
   }, height=260)
   
@@ -187,7 +191,7 @@ shinyServer(function(input, output, session) {
     if (all(is.na(vals$distances))) return()
     
     xvals = vals$plot_every_iterations * (1:vals$number_of_loops)
-    plot(xvals, vals$distances, type='o', pch=19, cex=0.7, 
+    plot(xvals, vals$distances, type='o', pch=19, cex=0.7, col = "#7f7fff",
          ylim=c(0, max(vals$distances, na.rm=TRUE)), xlab="iterações", ylab="distância",
          main="Evolução da distância percorrida")
   }, height=260)
