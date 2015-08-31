@@ -15,48 +15,21 @@ shinyUI(fluidPage(
   tags$h2("Cálculo de Rotas"),
   
   fluidRow(
-    column(8,
-	plotOutput("map", height="550px")),
-	column(4,
+    column(6,
+	plotOutput("map", height="550px"))
+	,
+	column(3,
 #     h4("Selecione um mapa"),
 #     selectInput("map_name", NA, c("World", "Brazil"), "Brazil", width="100px"),
       h4("Escreva abaixo o nome das cidades, ou", actionButton("set_random_cities", "Defina Aleatoriamente", icon=icon("refresh"))),
+	  
       selectizeInput("cities", NA, brazil_cities$full.name, multiple=TRUE, width="100%",
                      options = list(maxItems=30, maxOptions=100, placeholder="Start typing to select some cities...",
                                     selectOnTab=TRUE, openOnFocus=FALSE, hideSelected=TRUE)),
-      checkboxInput("label_cities", "Colocar rótulos das cidades no mapa?", FALSE)
-    )
-),
- 
- hr(),
-  
-#  plotOutput("map", height="550px"),
-  
-  fluidRow(
-
-  column(3,
-      tags$button("Resolver", id="go_button", class="btn btn-large action-button shiny-bound-input")
+      checkboxInput("label_cities", "Colocar nomes das cidades no mapa?", FALSE), tags$button("Calcular Rotas", id="go_button", class="btn btn-large action-button shiny-bound-input")
+	  
     ),
-    column(3,
-      HTML("<button id='set_random_cities_2' class='btn btn-large action-button shiny-bound-input'>
-              <i class='fa fa-refresh'></i>
-              Definir cidades aleatoriamente
-            </button>")
-    ), class="aaa"
-  ),
-  
-  hr(),
-  
-  fluidRow(
-    column(5,
-      tags$ol(
-        tags$li(h4("Personalize a lista de cidades")),
-        tags$li(h4("Ajuste os parâmetros do método de arrefecimento ao seu gosto")),
-        tags$li(h4("Click no botão Resolver"))
-      )
-    ),
-	    
-    column(2,
+	column(2,
       h4("Parâmetros do Arrefecimento"),
       inputPanel(
         numericInput("s_curve_amplitude", "Amplitude da curva S", 4000, min=0, max=10000000),
@@ -67,10 +40,30 @@ shinyUI(fluidPage(
         
 	  ),
       class="numeric-inputs"
-    ),
-    
-    column(5,
-      plotOutput("annealing_schedule", height="260px"),
+    )
+	
+	),
+	
+#  fluidRow(
+#
+#  column(3,
+#      tags$button("Calcular Rotas", id="go_button", class="btn btn-large action-button shiny-bound-input")
+#    ),
+#    column(3,
+#      HTML("<button id='set_random_cities_2' class='btn btn-large action-button shiny-bound-input'>
+#              <i class='fa fa-refresh'></i>
+#              Defina aleatoriamente
+#            </button>")
+#    ),
+#	class="aaa"
+#  ),
+  
+#  hr(),
+  
+  fluidRow(
+   column(5,
+      plotOutput("annealing_schedule", height="260px")),
+   column(5,
       plotOutput("distance_results", height="260px")
     )
   )

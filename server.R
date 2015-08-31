@@ -13,7 +13,7 @@ shinyServer(function(input, output, session) {
   map_name = "brazil"
   
   set_random_cities = reactive({
-    input$set_random_cities + input$set_random_cities_2
+    input$set_random_cities# + input$set_random_cities_2
   })
   
 #  city_choices = reactive({
