@@ -168,7 +168,7 @@ shinyServer(function(input, output, session) {
       pretty_dist = prettyNum(vals$tour_distance, big.mark=",", digits=0, scientific=FALSE)
       pretty_iter = prettyNum(vals$iter, big.mark=",", digits=0, scientific=FALSE)
       pretty_temp = prettyNum(current_temperature(vals$iter, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width),
-                              big.mark=",", digits=0, scientific=FALSE)
+                              big.mark=".", digits=0, scientific=FALSE)
       
       plot_title = paste0("Distância: ", pretty_dist, " Km\n",
                           "Iterações: ", pretty_iter, "\n",
